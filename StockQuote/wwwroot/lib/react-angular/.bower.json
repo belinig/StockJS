@@ -1,0 +1,14 @@
+{
+  "name": "react-angular",
+  "homepage": "https://github.com/fmauquie/react-angular",
+  "version": "0.2.0",
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.0",
+    "commit": "beb36df80636f4b109cf77d29e9ad5672ae24a11"
+  },
+  "_source": "https://github.com/fmauquie/react-angular.git",
+  "_target": "0.2.0",
+  "_originalSource": "react-angular"
+}

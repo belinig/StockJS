@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UserSecretsId>aspnet-StockQuote-56bd60b1-485b-4f2b-9f34-8b5b0a26a886</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\css\Watch.css" />
+    <Content Include="wwwroot\html\dirPagination.tpl.html" />
+    <Content Include="wwwroot\html\ModalStockCodeSearch - Copy.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\html\ModalStockCodeSearch.html" />
+    <Content Include="wwwroot\js\EditWatchlist.js" />
+    <Content Include="wwwroot\js\FindStock.js" />
+    <Content Include="wwwroot\js\ViewWatchlist.js" />
+    <Content Include="wwwroot\js\Watch - Copy.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\Watch.bak.js" />
+    <Content Include="wwwroot\js\Watch.js" />
+    <Content Include="wwwroot\less\dropdowns.less">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\less\example.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AngularJS.Animate" Version="1.6.4" />
+    <PackageReference Include="AngularJS.Core" Version="1.6.4" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.4.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\old\_LoginPartial.cshtml" />
+    <None Include="Views\Quote\Watch.cshtml" />
+    <None Include="Views\Quote\Watchlist.cshtml" />
+    <None Include="Views\Watchlist\Watch.cshtml" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\.bower.json" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\bower.json" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\CHANGELOG.md" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\dist\css\bootstrap-touch-carousel.css" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\dist\js\bootstrap-touch-carousel.js" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\Gruntfile.js" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\LICENSE-MIT" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\package.json" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\README.md" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\src\js\touch-carousel.js" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\src\js\transition.js" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\src\less\carousel.less" />
+    <None Include="wwwroot\lib\bootstrap-touch-carousel\src\less\elements.less" />
+    <None Include="wwwroot\lib\hammer.js\.bower.json" />
+    <None Include="wwwroot\lib\hammer.js\.bowerrc" />
+    <None Include="wwwroot\lib\hammer.js\.gitignore" />
+    <None Include="wwwroot\lib\hammer.js\.jscsrc" />
+    <None Include="wwwroot\lib\hammer.js\.jshintrc" />
+    <None Include="wwwroot\lib\hammer.js\.travis.yml" />
+    <None Include="wwwroot\lib\hammer.js\bower.json" />
+    <None Include="wwwroot\lib\hammer.js\CHANGELOG.md" />
+    <None Include="wwwroot\lib\hammer.js\component.json" />
+    <None Include="wwwroot\lib\hammer.js\CONTRIBUTING.md" />
+    <None Include="wwwroot\lib\hammer.js\Gruntfile.coffee" />
+    <None Include="wwwroot\lib\hammer.js\hammer.js" />
+    <None Include="wwwroot\lib\hammer.js\hammer.min.js" />
+    <None Include="wwwroot\lib\hammer.js\hammer.min.map" />
+    <None Include="wwwroot\lib\hammer.js\LICENSE.md" />
+    <None Include="wwwroot\lib\hammer.js\package.json" />
+    <None Include="wwwroot\lib\hammer.js\README.md" />
+  </ItemGroup>
+</Project>

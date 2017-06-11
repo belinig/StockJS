@@ -1,0 +1,71 @@
+<!-- Modal -->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <h6 class="modal-title">Find Code</h6>
+</div>
+<div class="modal-body">
+    <table>
+        <tr class="searchStockBlock">
+            <td align="right">Stock Code or Name:</td>
+            <td align="left" style="margin:5px auto">
+                <div>
+                    <input id="stockCodeName" type="text" ng-model="stockCodeName" min="1" max="40" style="width:90px">
+                </div>
+            </td>
+            <td align="left">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <button ng-click="findASXStock(stockCodeName)">Find</button>
+                    </div>
+                    <div class="col-sm-4" align="right">
+                        <label for="pageSize">Display</label>
+                    </div>
+                    <div class="col-sm-3 no-margin" align="left">
+                        <select id="pageSize" ng-model="pageSize" ng-init="pageSize=5">
+                            <option>5</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="my-controller">
+                    <div class="panel panel-default">
+                        <div class="panel-body astocks">
+                            <table id="table_astocks" class="table-striped">
+                                <thead id="thead_astocks">
+                                    <tr id="tr_astocks">
+                                        <td id="td_astocks" align="right">Code</td>
+                                        <td id="td_astocks" align="right">Name</td>
+                                        <td id="td_astocks" align="right">Industry</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_astocks">
+                                    <tr id="tr_astocks" dir-paginate="item in astocks | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                                        <td id="td_astocks" align="left">{{item.code}}</td>
+                                        <td id="td_astocks" align="right">{{item.name}}</td>
+                                        <td id="td_astocks" align="right">{{item.industryGroup}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="other-controller">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="../html/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="save(stockCodeName)">Ok</button>
+</div>
+

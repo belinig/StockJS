@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<title>Stock Quotes</title>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Andy Parham">
+    <meta name="date" content="September 2016">
+    <meta name="description" content="Real Time Stock Quoter ">
+    <meta name="keywords" content="HTML,CSS,JSON,JavaScript,AngularJS">
+</head>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"> </script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #input1 {
+        font-size: 10pt;
+        height: 20px;
+        width: 15px;
+    }
+
+
+    #divHeader1 div {
+        float: left;
+        margin: 0 2em 0 0em;
+    }
+
+    #divHeader2 div {
+        float: right;
+        margin: 0 0em 0 0em;
+    }
+
+    #div1 div {
+        float: left;
+    }
+
+    #cb1 {
+        float: left;
+        width: 20px;
+        text-align: right;
+        margin-right: 0.5em;
+    }
+
+    #div_main {
+        padding-top: 3px;
+        width: 95%;
+    }
+
+    #dateTime {
+        color: black;
+        font-weight: bold;
+        font-size: 20px;
+        float: right;
+    }
+
+    #updateMsg {
+        color: red;
+        font-weight: bold;
+        font-size: 20px;
+        padding-left: 8px;
+    }
+
+
+    #table_watchlist {
+        border-collapse: collapse;
+        border: 1px solid black;
+        width: 100%;
+        margin: auto;
+    }
+
+    #tr_quotes {
+        font-weight: bold;
+        color: bold;
+    }
+
+    #td_quotes {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .item {
+    }
+
+        .item.ng-move,
+        .item.ng-enter,
+        .item.ng-leave {
+            -webkit-transition: all linear 0.5s;
+            transition: all linear 1.5s;
+        }
+
+            .item.ng-leave.ng-leave-active,
+            .item.ng-move,
+            .item.ng-enter {
+                opacity: 0;
+            }
+
+                .item.ng-leave,
+                .item.ng-move.ng-move-active,
+                .item.ng-enter.ng-enter-active {
+                    opacity: 1;
+                }
+</style>
+
+<script>
+
+// works best in chrome and firefox - developed in chrome browser version 54
+
+  var app = angular.module("app", ['ngAnimate']);
+  pollInterval = 5000;   // interval of stock quoter service call in milliseconds
+  var model = {user: "Andy"};
+  var first = true;
+
+
+      // These symbols will be used in the service call to the stock quotation service
+     var symbols = [".IXIC", ".DJI", ".INX", "MU", "AAPL", "GOOG", "ORCL"];
+
+     // for display of company name associated with ticker
+     // AJAX call will populate this object
+     var companyName = {};
+
+
+ app.service('SRV_getWatchlist', function($http, $q, $rootScope)
+ {
+     this.getW = function($scope) {
+         console.log("SRV_getWatchlist.getW")
+
+         $scope.notification = "Updating Watchlist...";
+
+        first = false;
+        var url = buildWatchlistURL($scope.watchlist);
+
+         // Get stock Quotes every {{pollInterval}} seconds
+         $.ajax({
+             url: url,
+             type: "GET",
+             async: true,
+             dataType: 'json'
+         }).then(function (wdata) {
+             $scope.notification = "";
+             parseWatchlistData(wdata, $scope.watchlist);
+             model.wquotes = wdata.wquotes;
+             $scope.model = model;
+             $scope.$apply();
+         })
+         .fail(function () {
+             alert("Ajax failed getting watchlist quotes");
+         });
+
+     }
+ }
+ );
+
+
+	// Build URL (for quoter service) from the symbols array
+	function buildWatchlistURL($watchlist) {
+	    var url = '/api/QuoteApi/Watchlist/'
+	    console.log("buildWatchlistURL" + "watchlist=" + $watchlist);
+	    return url + $watchlist;
+	}
+
+	// parse results from watchlist stock quotes call
+	function parseWatchlistData(wdata, watchlist) {
+        console.log("parseWatchlistData start");
+        var wquotes = [];
+	    for (i = 0; i < wdata.length; i++) {
+
+            var quote = {}
+	        quote.symbol = wdata[i].symbol;
+	        quote.price = Number(wdata[i].lastTradePrice);
+	        quote.date = wdata[i].lastUpdate;
+	        wquotes.push(quote);
+	    }
+
+        console.log("parseWatchlistData end, items parsed count=" + wquotes.length);
+        wdata.wquotes = wquotes;
+	}
+
+
+  app.service('SRV_getDateTime', function(){
+  this.getDateTime = function($scope) {
+
+           var date = new Date();
+		   var secs = date.getSeconds();
+		   var mins = date.getMinutes();
+		   if (secs < 10) {secs = "0" + secs};
+		   if (mins < 10) {mins = "0" + mins};
+           var datestring = (date.getMonth()+1) + "/" + date.getDate()  +  "/" + date.getFullYear() +
+                " - " +    date.getHours() + ":" + mins + ":" + secs;
+           $scope.curDateTime =  datestring;
+
+  }
+ });
+
+
+     app.directive("myDateTime", function() {
+
+          return {
+            template : '<span>{{curDateTime}}</span>',
+	    	link: function (scope, element, attrs) {
+            }
+     };
+});
+
+
+
+/*
+	app.filter("calcSum", function () {
+        return function (data, key, key2, scope) {
+
+	    if (angular.isUndefined(data) && angular.isUndefined(key))
+            return 0;
+
+          var sum = 0;
+
+          angular.forEach(data,function(v,k){
+		    if (isNaN(v[key])) {}
+			else {
+
+            var shares = v[key2];
+            if  (!angular.isUndefined(shares)) {
+              var value = (v[key]);
+              shares = parseInt(shares);
+              if (key == "dayGainLoss")
+                 shares = 1;
+         	  sum = sum + (value * shares);
+ 			}
+        }});
+
+
+        if (key == "dayGainLoss")
+          scope.totalGainLossDay = sum;
+        else if (key == "cost")
+          scope.totalCost = sum;
+        else if (key == "l")
+           scope.totalValue = sum;
+
+         if (scope.mode == "Extended Trading")
+             if (key != "dayGainLoss")
+                 sum = 0;
+        return sum;
+    }
+})
+*/
+
+app.controller('myCtrl', function($scope, $interval, $timeout, $window, SRV_getWatchlist, SRV_getDateTime) {
+    $scope.model = model;
+    $scope.watchlists = ["Oil", "Banks","JIB Portfolio"];
+	$scope.notification = "Updating...";
+    $scope.fontSize;
+    $scope.pollInterval = pollInterval;
+
+
+    $window.onload = function (e) { SRV_getWatchlist.getW($scope);}
+
+    $scope.getWatchlist = function () {
+        SRV_getWatchlist.getW($scope)  // call service
+    };
+
+     $scope.getDateTime = function() {
+        SRV_getDateTime.getDateTime($scope)
+     };
+
+     $interval($scope.getDateTime, 1000);
+
+     $timeout($scope.getWatchlist, 1000);
+
+	    $scope.getColor = function(value){
+		   var color = {'color':'green', 'font-weight':'bold'};
+		   if (value < 0)
+	           color = {'color':'red', 'font-weight':'bold'};
+		   return color;
+        }
+
+    /*
+		 $scope.getColor_totalgainloss = function(){
+		   var color = {'color':'green', 'font-weight':'bold'};
+           var total = $scope.totalValue - $scope.totalCost - $scope.cash;
+           if (total < 0)
+	           color = {'color':'red', 'font-weight':'bold'};
+           if ($scope.mode == "Extended Trading")
+               var color = {'color':'green', 'font-weight':'bold'};
+		   return color;
+        }
+
+
+		 $scope.getColor_totalgainlossDay = function(){
+
+		   var color = {'color':'green', 'font-weight':'bold'};
+	       if ($scope.totalGainLossDay < 0)
+	           color = {'color':'red', 'font-weight':'bold'};
+		   return color;
+        }
+
+    */
+
+        $scope.getFontSize = function(){
+             return $scope.fontSize;
+        }
+
+
+		$scope.changeWatchlist = function(watchlist){
+		    SRV_getWatchlist.getW($scope)  // call service
+		}
+
+
+        $scope.order = function() {
+	           return $scope.order = 'name';
+         };
+
+	    $scope.setSortOrder = function(field) {
+	          $scope.sortDir = !$scope.sortDir;
+	          return $scope.order = field;
+        };
+
+});
+</script>
+
+
+<div id="div_main" ng-app="app" class="container-fluid">
+    <div ng-controller="myCtrl">
+
+        <div width=100%>
+            <div id="divHeader1">
+
+                <div>
+                    <div>
+                        <input id="cb1" type="checkbox" ng-model="optStock" name="stock" value="stock" ng-init="optStock=true">Stock<br>
+                        <input id="cb1" type="checkbox" ng-model="optOptions" name="options" value="options" ng-init="optOptions=true"> Options<br>
+                    </div>
+                </div>
+                <div>
+                    <select name="singleWatchlistSelect" ng-model="watchlist" ng-options="x for x in watchlists" ng-change="changeWatchlist(watchlist)" ng-init="watchlist='Oil'"></select>
+                </div>
+                <div>
+                    Table Size:  <input id="input1" type="number" ng-model="fontSize" min="1" max="40" ng-init="fontSize=15" style="width:45px">
+                </div>
+            </div>
+            <div id="divHeader2">
+                <my-Date-Time id="dateTime"></my-Date-Time>
+            </div>
+
+
+        </div>
+
+        <table id="table_watchlist" class="table-striped">
+
+            <thead>
+                <tr ng-style="{'background-color':'#d3d3d3', 'font-weight':'bold', 'font-size':getFontSize()}">
+                    <td id="td_quotes" align="left">
+                        <a href="" ng-click="setSortOrder('t')"> Symbol &nbsp</a>
+                        <input type="search" name="search" placeholder="Filter By Symbol" size=14 ng-model="search.t">
+                    </td>
+                    <td id="td_quotes" align="right">Price$</td>
+                    <td id="td_quotes" align="right">DateTime</td>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr id="tr_quotes" ng-repeat="item in myFilteredList2 = (model.wquotes)"
+                    ng-style="{'font-size':getFontSize()}">
+                    <td id="td_quotes" align="left">{{item.symbol}}</td>
+                    <td id="td_quotes" align="right">{{item.price | number:3}}</td>
+                    <td id="td_quotes" align="right">{{item.date | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html> 

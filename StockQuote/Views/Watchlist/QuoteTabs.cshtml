@@ -1,0 +1,29 @@
+@using StockQuote.Components.Watchlist
+@using Microsoft.AspNetCore.Razor
+@using Microsoft.AspNetCore.Razor.Runtime
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WatchViewComponent.ViewModel
+
+<script src="~/lib/angular/angular.js"></script>
+<script src="~/lib/angular-animate/angular-animate.js"></script>
+<script src="~/js/Watch.js"></script>
+
+<div ng-app="Watch">
+    
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#watch" aria-controls="watch" role="tab" data-toggle="tab">Watchlists</a></li>
+        <li role="presentation"><a href="#edit" aria-controls="edit" role="tab" data-toggle="tab">Edit</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" ng-controller="tabsCtrl">
+        <div role="tabpanel" class="tab-pane active" id="watch" select="onWatchSelected()">
+            @await Component.InvokeAsync("Watch", "Banks" )
+        </div>
+        <div role="tabpanel" class="tab-pane" id="edit" select="onEditSelected()">
+            @await Component.InvokeAsync("EditWatchlist", "Oil")
+        </div>
+    </div>
+
+</div>

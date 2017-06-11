@@ -1,0 +1,70 @@
+﻿@using StockQuote.Components.Watchlist
+@inject IJsonHelper Json;
+@model WatchViewComponent.ViewModel
+
+<link rel="stylesheet" href="~/css/Watch.css" /> 
+
+<script src="~/js/ViewWatchlist.js"></script>
+<script>
+    var viewModel = @Html.Raw(Json.Serialize(Model));
+</script>
+
+<div id="div_main_View" class="container-fluid">
+    <div ng-controller="viewCtrl">
+
+        <div width=100%>
+            <div id="divHeader1">
+
+                <div>
+                    <div>
+                        <input id="cb1" type="checkbox" ng-model="optStock" name="stock" value="stock" ng-init="optStock=true">Stock<br>
+                        <input id="cb1" type="checkbox" ng-model="optOptions" name="options" value="options" ng-init="optOptions=true"> Options<br>
+                    </div>
+                </div>
+                <div>
+                    <select name="singleWatchlistSelect" ng-model="selectedWatchlist" ng-options="x.name for x in watchlists track by x.name" ng-change="changeWatchlist(selectedWatchlist)"></select>
+                    <!--ng-init="selectedWatchlist.name='@Model.Watch.Name'"-->
+                </div>
+                <div>
+                    Date:  <input id="quotedate" type="date" ng-model="quotedate" ng-init="quotedate=getDate()">
+                </div>
+                <div>
+                    Table Size:  <input id="input1" type="number" ng-model="fontSize" min="1" max="40" ng-init="fontSize=15" style="width:45px">
+                </div>
+            </div>
+            <div id="divHeader2">
+                <my-Date-Time id="dateTime"></my-Date-Time>
+            </div>
+
+
+        </div>
+
+        <table id="table_watchlist" class="table-striped" >
+
+            <thead id="thead_quotes">
+                <tr ng-style="{'background-color':'#d3d3d3', 'font-weight':'bold', 'font-size':getFontSize()}">
+                    <td id="td_quotes" align="left">
+                        <a href="" ng-click="setSortOrder('t')"> Symbol &nbsp</a>
+                        <input type="search" name="search" placeholder="Filter By Symbol" size=14 ng-model="search.t">
+                    </td>
+                    <td id="td_quotes" align="right">Price$</td>
+                    <td id="td_quotes" align="right">DateTime</td>
+                </tr>
+            </thead>
+
+            <tbody id="tbody_quotes">
+
+                <tr id="tr_quotes" ng-repeat="item in myFilteredList2 = (model.watchlist.stocks | filter:search.t)"
+                    ng-style="{'font-size':getFontSize()}">
+                    <td id="td_quotes" align="left">{{item.symbol}}</td>
+                    <td id="td_quotes" align="right">{{item.price | number:3}}</td>
+                    <td id="td_quotes" align="right">{{item.lastUpdate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>

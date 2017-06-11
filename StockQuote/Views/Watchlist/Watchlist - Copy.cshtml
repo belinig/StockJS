@@ -1,0 +1,55 @@
+﻿@using System.Web.Helpers
+@using Jarloo.CardStock.Models
+@model IEnumerable<Quote>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Stock Quote";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Watchlist</h2>
+<div>
+        @{
+//List<Jarloo.CardStock.Models.Quote> list = new List<Jarloo.CardStock.Models.Quote>();
+//list.Add(Model);
+//var grid = new WebGrid(list);
+//var result = ObjectInfo.Print(Model);
+//var html = new HtmlString(result.ToHtmlString());
+
+        }
+    <select id="Date">
+    <option></option>
+
+    <select id="Watchlist">
+    <option></option>
+
+        </select>
+    <table style="width:100%;">
+    <tr><td>Stock&nbsp;</td><td>Price&nbsp;</td><td>Date&nbsp;</td></tr>
+    @{
+        foreach(Quote quote in Model)
+        {
+            <tr><td>@quote.Name&nbsp;</td><td>@quote.LastTradePrice&nbsp;</td><td>@quote.LastTradeDate&nbsp;</td></tr>
+        }
+    }
+    </table>
+       
+                @*
+             @html
+             @grid.GetHtml()
+            var result = ObjectInfo.Print(Model);
+        @result.ToHtmlString();*@
+    
+    </div>
+
+
+@*@foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+            <div class="editor-line">
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.Editor(property.PropertyName)
+            </div>
+        }
+*@

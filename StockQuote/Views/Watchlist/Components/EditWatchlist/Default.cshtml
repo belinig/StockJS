@@ -1,0 +1,102 @@
+﻿@using StockQuote.Components.Watchlist
+@model EditViewComponent.ViewModel
+
+<link rel="stylesheet" href="~/css/Watch.css" />
+
+<script src="~/js/EditWatchlist.js"></script>
+<script src="~/js/FindStock.js"></script>
+
+<div id="div_main_Edit" class="container-fluid">
+    <div ng-controller="editCtrl">
+
+        <div width=100%>
+            <div id="divHeader1">
+
+                <div>
+                    <div>
+                        <input id="cb1" type="checkbox" ng-model="optStock" name="stock" value="stock" ng-init="optStock=true">Stock<br>
+                        <input id="cb1" type="checkbox" ng-model="optOptions" name="options" value="options" ng-init="optOptions=true"> Options<br>
+                    </div>
+                </div>
+                <div>
+                    <select name="singleWatchlistSelect" ng-model="selectedWatchlist" ng-options="x.name for x in watchlists track by x.name" ng-change="changeWatchlist(selectedWatchlist)"></select>
+                    <button ng-click="newWatchlistEdit()">New</button>
+                </div>
+                <div>
+                    Table Size:  <input id="input1" type="number" ng-model="fontSize" min="1" max="40" ng-init="fontSize=15" style="width:45px">
+                </div>
+            </div>
+            <div id="divHeader2">
+                <my-Date-Time id="dateTime"></my-Date-Time>
+            </div>
+
+
+        </div>
+
+        <table id="table_watchlist" class="table-striped">
+
+            <thead>
+                <tr>
+                    <td align="left">
+                        <input type="text" name="watchlistNameEdit" placeholder="{{watchlist}}" size=14 ng-model="watchlist">
+                    </td>
+                    <td align="left">
+                        <div class="input-group">
+                            <input  class="typeahead" type="text"  typeahead-editable=true name="stockAddEdit" id="stockAddEdit" placeholder="Enter stock to Add" size=14 ng-model="stock2Add">
+                            <button class="btn pull-left" title="Add" ng-click="addStock2WatchlistEdit(stock2AddElem.value)">
+                                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                            </button>
+                            <button class="btn pull-left" title="SearchStockCode" ng-click="searchStockCode(stock2AddElem.value)">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                         </div>
+                    </td>
+                    <td align="right">
+                        <div class="input-group">
+                            <input type="file" file-input="files" accept=".csv"/>
+                            <button title="Import" ng-click="importWatchlistEdit(stock2Add)">
+                                <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+                            </button>
+                            <!--input type="file" file-input="wcsvfile" accept="*.csv"/-->
+                        </div>
+                    </td>
+                </tr>
+
+                <tr ng-style="{'background-color':'#d3d3d3', 'font-weight':'bold', 'font-size':getFontSize()}">
+                    <td id="td_quotes" align="left">
+                        <a href="" ng-click="setSortOrder('t')"> Symbol &nbsp</a>
+                        <input type="search" name="search" placeholder="Filter By Symbol" size=14 ng-model="search.t">
+                    </td>
+                    <td id="td_quotes" align="left">Action</td>
+                    <td/>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr id="tr_quotes" ng-repeat="item in myFilteredList2 = (model.watchlist.stocks | filterRemoved:this | filter:search.t)"
+                    ng-style="{'font-size':getFontSize()}">
+                    <td id="td_quotes" align="left"  ng-style="{'font-size':getFontSize()}">{{item.symbol}}</td>
+                    <td id="td_quotes" align="left">
+                        <button ng-click="removeStockFromWatchlistEdit(item)">Remove</button>
+                    </td>
+                    <td/>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr ng-style="{'border':'1px solid black'}">
+                    <td align="left">
+                        <button type="reset" ng-click="cancelWatchlistEdit()">Cancel</button>
+                    </td>
+                    <td/>
+                    <td align="right">
+                        <button ng-click="saveWatchlistEdit()">Save</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div id="updateMsg" align="left" ng-style="{'color':'red'}">{{notification}}</div>
+
+    </div>
+</div>

@@ -1,0 +1,18 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "v3.3.7",
+    "jquery": "2.2.0",
+    "jquery-validation": "1.14.0",
+    "jquery-validation-unobtrusive": "3.2.6",
+    "angular": "1.6.4",
+    "angular-route": "1.6.4",
+    "angular-animate": "1.6.4",
+    "angular-bootstrap": "2.5.0",
+    "react-angular": "0.2.0",
+    "bootstrap3-typeahead": "v4.0.2",
+    "handlebars": "v4.0.5",
+    "typeahead.js": "0.11.1"
+  }
+}
