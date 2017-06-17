@@ -8,6 +8,7 @@ using MongoDB.Driver.Linq;
 using MongoDB.Driver.Core;
 using MongoDB.Driver.GeoJsonObjectModel;
 using StockQuote.Models;
+using BAC = MongoDB.Driver.Builders<StockQuote.Models.ASXListedCompany>;
 
 namespace StockQuote.Data
 {
@@ -225,14 +226,18 @@ namespace StockQuote.Data
             return companies;
         }
 
-        public static List<ASXListedCompany> FindCompaniesByDescription(string match, int top=0)
+        public static List<ASXListedCompany> FindCompaniesByDescriptionLessCode(string match, int top=0)
         {
-            List<ASXListedCompany> companies = null;
+            List <ASXListedCompany> companies = null;
             StocksDB stocksDB = new StocksDB();
             string collectionName = "ASXListedCompanies";
             var collection = stocksDB.GetCollection<ASXListedCompany>(collectionName);
             string regex = string.Concat("/", match, "/i");
-            var filter = Builders<ASXListedCompany>.Filter.Regex("Code", regex);
+            var filter = BAC.Filter.And(BAC.Filter.Not(BAC.Filter.Regex("Code", regex)),
+                                        BAC.Filter.Regex("Name", regex));
+
+
+
             try
             {
                 companies = collection.Find<ASXListedCompany>(filter).Limit(top).ToList<ASXListedCompany>();

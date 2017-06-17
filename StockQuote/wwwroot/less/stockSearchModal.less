@@ -1,0 +1,154 @@
+﻿.app-modal-window .modal-dialog .modal-content {
+    width: 502px;
+}
+
+.app-modal-window .modal-dialog .modal-content .modal-header {
+    height: 29px;
+    font-size: small;
+}
+
+.app-modal-window .modal-dialog .modal-content .modal-footer {
+    height: 60px;
+}
+
+.app-modal-window .modal-dialog .modal-content .modal-body {
+    height: auto;
+}
+
+.app-modal-window .modal-dialog .modal-content .modal-body tr.searchStockBlock {
+    display: inline-block;
+    height: 40px;
+    padding: 6px 7px 8px 9px;
+    margin: 2px 3px 4px 5px;
+}
+
+.app-modal-window .modal-dialog .modal-content .modal-body td:nth-child(1), td:nth-child(2) {
+    width: 150px
+}
+
+
+.my-controller {
+    border: 1px solid #fcc;
+    width: 450px;
+    font-size: smaller;
+}
+
+.my-controller small {
+    color: #c99;
+}
+
+.other-controller {
+    border: 1px solid #ccf;
+    padding: 5px;
+    margin: 3px;
+    width: 450px;
+    font-size: smaller;
+}
+
+.other-controller small {
+    color: #99c;
+}
+
+
+dir-pagination-controls.pagination > li > a {
+    font-size: 8px;
+}
+
+div.col-sm-3.no-margin {
+    padding-left: 2px
+}
+
+div.panel-body.astocks {
+    padding: 0px;
+}
+
+#table_astocks {
+    border-collapse: collapse;
+    border: 1px solid #fcc;
+    width: 100%;
+    margin: auto;
+}
+
+#thead_astocks {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+#tbody_astocks {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+
+
+.app-modal-window .modal-dialog .modal-content .modal-body td:nth-child(1)#td_astocks {
+    width: 50px
+}
+
+.app-modal-window .modal-dialog .modal-content .modal-body td:nth-child(2)#td_astocks {
+    width: 250px
+}
+
+.app-modal-window .modal-dialog .modal-content .modal-body td {
+    text-align: left;
+}
+
+
+//Less
+
+.tr_astocks_common {
+    font-weight: bold;
+    color: black;
+    background-size: 40px 40px;
+    background-image: repeating-linear-gradient(0deg, #fff, #fff 1px, transparent 1px, transparent 40px),repeating-linear-gradient(-90deg, #fff, #fff 1px, transparent 1px, transparent 40px);
+}
+
+.td_astocks_common {
+    border-collapse: collapse;
+    border-spacing: 0px 0px;
+    font-family: Arial,Verdana,Helvetica,Sans-Serif;
+    font-style: normal;
+    font-variant: normal;
+    text-align: left;
+    text-decoration: none;
+    visibility: visible;
+}
+
+.td_astocks_header {
+    .td_astocks_common;
+    color: rgb(0, 120, 184);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 13.54px;
+    padding-left: 1px;
+}
+
+
+.td_astocks_body {
+    .td_astocks_common;
+    color: rgb(40, 40, 40);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.77px;
+}
+
+#thead_astocks > #tr_astocks {
+    .tr_astocks_common;
+
+    >#td_astocks {
+        .td_astocks_header;
+    }
+}
+
+#tbody_astocks > #tr_astocks {
+    .tr_astocks_common;
+
+    >#td_astocks {
+        .td_astocks_body;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: #ffff99;
+    }
+}

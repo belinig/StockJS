@@ -2,8 +2,6 @@
 @inject IJsonHelper Json;
 @model WatchViewComponent.ViewModel
 
-<link rel="stylesheet" href="~/css/Watch.css" /> 
-
 <script src="~/js/ViewWatchlist.js"></script>
 <script>
     var viewModel = @Html.Raw(Json.Serialize(Model));
@@ -14,12 +12,9 @@
 
         <div width=100%>
             <div id="divHeader1">
-
                 <div>
-                    <div>
-                        <input id="cb1" type="checkbox" ng-model="optStock" name="stock" value="stock" ng-init="optStock=true">Stock<br>
-                        <input id="cb1" type="checkbox" ng-model="optOptions" name="options" value="options" ng-init="optOptions=true"> Options<br>
-                    </div>
+                    <input id="cb1" type="checkbox" ng-model="optStock" name="stock" value="stock" ng-init="optStock=true">Stock<br>
+                    <input id="cb1" type="checkbox" ng-model="optOptions" name="options" value="options" ng-init="optOptions=true"> Options<br>
                 </div>
                 <div>
                     <select name="singleWatchlistSelect" ng-model="selectedWatchlist" ng-options="x.name for x in watchlists track by x.name" ng-change="changeWatchlist(selectedWatchlist)"></select>

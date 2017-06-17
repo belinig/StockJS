@@ -19,7 +19,13 @@
 
         class Stock {
             constructor(symbol) {
-                this.symbol = symbol;
+                var asxStock = symbol.toUpperCase();
+                if (asxStock != null && (asxStock.length == 3 ||
+                    asxStock.indexOf(".AX") == -1))
+                    {
+                    asxStock += ".AX";
+                }
+                this.symbol = asxStock;
                 this.removed = false;
             }
         }

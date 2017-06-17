@@ -29,6 +29,78 @@ angular.module("Watch")
             SRV_findASXStocks.getN($scope, match, $scope.process, 0)
         };
 
+        $scope.selectStock = function (item) {
+            $scope.stockCodeName = item.code;
+        };
+
+        $scope.sortBy = function (columnName) {
+            if ($scope.astocks == null || $scope.astocks.length < 2) return;
+            if ($scope.SortByColumnName === columnName && $scope.SortByDirectionAsc != null) {
+                $scope.SortByDirectionAsc = !$scope.SortByDirectionAsc
+            }
+            else {
+                $scope.SortByDirectionAsc = true;
+            }
+            $scope.SortByColumnName = columnName;
+            $scope.SortBy();
+        };    
+
+
+        $scope.applyArrowClass = function (columnName) {
+            var className = "";
+            if (columnName == $scope.SortByColumnName) {
+                if ($scope.SortByDirectionAsc == true) {
+                    className = "arrow-down-symbol";
+                }
+                else if ($scope.SortByDirectionAsc == false) {
+                    className = "arrow-up-symbol";
+                }
+            }
+            return className;         
+        };
+
+        $scope.compareStr = function (a, b) {
+            return a.localeCompare(b);
+        };
+
+        $scope.SortBy = function () {
+             switch ($scope.SortByColumnName) {
+            case "Code":
+                    $scope.astocks.sort(function (a, b) {
+                        if ($scope.SortByDirectionAsc) {
+                            return $scope.compareStr(a.code, b.code);
+                        }
+                        else {
+                            return $scope.compareStr(b.code, a.code);
+                        }
+                    }
+                    );
+                break;
+            case "Name":
+                    $scope.astocks.sort(function (a, b) {
+                        if ($scope.SortByDirectionAsc) {
+                            return $scope.compareStr(a.name, b.name);
+                        }
+                        else {
+                            return $scope.compareStr(b.name, a.name);
+                        }
+                    }
+                    );
+                    break;
+            case "Industry":
+                    $scope.astocks.sort(function (a, b) {
+                        if ($scope.SortByDirectionAsc) {
+                            return $scope.compareStr(a.industryGroup, b.industryGroup);
+                        }
+                        else {
+                            return $scope.compareStr(b.industryGroup, a.industryGroup);
+                        }
+                    }
+                    );
+                    break;
+            }
+        };
+
         $scope.process = function (stocks) {
             $scope.astocks = stocks;
             $scope.$apply();

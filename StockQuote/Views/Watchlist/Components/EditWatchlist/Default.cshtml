@@ -1,8 +1,6 @@
 ﻿@using StockQuote.Components.Watchlist
 @model EditViewComponent.ViewModel
 
-<link rel="stylesheet" href="~/css/Watch.css" />
-
 <script src="~/js/EditWatchlist.js"></script>
 <script src="~/js/FindStock.js"></script>
 
@@ -42,7 +40,7 @@
                     </td>
                     <td align="left">
                         <div class="input-group">
-                            <input  class="typeahead" type="text"  typeahead-editable=true name="stockAddEdit" id="stockAddEdit" placeholder="Enter stock to Add" size=14 ng-model="stock2Add">
+                            <input  class="typeahead" type="text"  typeahead-editable=true name="stockAddEdit" id="stockAddEdit" placeholder="Enter stock to Add" size=14>
                             <button class="btn pull-left" title="Add" ng-click="addStock2WatchlistEdit(stock2AddElem.value)">
                                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                             </button>

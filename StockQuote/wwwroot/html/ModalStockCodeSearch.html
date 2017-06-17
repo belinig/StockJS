@@ -39,13 +39,14 @@
                             <table id="table_astocks" class="table-striped">
                                 <thead id="thead_astocks">
                                     <tr id="tr_astocks">
-                                        <td id="td_astocks" align="right">Code</td>
-                                        <td id="td_astocks" align="right">Name</td>
-                                        <td id="td_astocks" align="right">Industry</td>
+                                        <!--ng-class="{ active: user.id == activeId }"-->
+                                        <td id="td_astocks" align="right" ng-click="sortBy('Code')" ng-class="applyArrowClass('Code')"><a href="javascript:void(0)">Code</a></td>
+                                        <td id="td_astocks" align="right" ng-click="sortBy('Name')" ng-class="applyArrowClass('Name')"><a href="javascript:void(0)">Name</a></td>
+                                        <td id="td_astocks" align="right" ng-click="sortBy('Industry')" ng-class="applyArrowClass('Industry')"><a href="javascript:void(0)">Industry</a></td>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody_astocks">
-                                    <tr id="tr_astocks" dir-paginate="item in astocks | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                                    <tr id="tr_astocks" dir-paginate="item in astocks | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-click="selectStock(item)">
                                         <td id="td_astocks" align="left">{{item.code}}</td>
                                         <td id="td_astocks" align="right">{{item.name}}</td>
                                         <td id="td_astocks" align="right">{{item.industryGroup}}</td>

@@ -64,11 +64,19 @@
             });
 
         $scope.stock2AddElem = document.querySelector('#stockAddEdit.tt-input');
+        //$scope.stock2AddElem.value = "";
         $scope.$watch("stock2Add",
             function (newValue, oldValue) {
                 if ($scope.stock2AddElem.value !== newValue)
                 {
-                    $scope.stock2AddElem.value = newValue;
+                    if (newValue == null)
+                    {
+                        $scope.stock2AddElem.value = "";
+                    }
+                    else
+                    {
+                        $scope.stock2AddElem.value = newValue;
+                    }
                 }
             }
         )
@@ -239,7 +247,7 @@
             modalInstance.result.then(function (selectedItem) {
                 $scope.stock2Add = selectedItem;
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                console.info('Modal dismissed at: ' + new Date());
             });
         };
 

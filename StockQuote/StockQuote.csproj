@@ -9,7 +9,6 @@
     <UserSecretsId>aspnet-StockQuote-56bd60b1-485b-4f2b-9f34-8b5b0a26a886</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="wwwroot\css\Watch.css" />
     <Content Include="wwwroot\html\dirPagination.tpl.html" />
     <Content Include="wwwroot\html\ModalStockCodeSearch - Copy.html">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -23,10 +22,10 @@
     </Content>
     <Content Include="wwwroot\js\Watch.bak.js" />
     <Content Include="wwwroot\js\Watch.js" />
-    <Content Include="wwwroot\less\dropdowns.less">
+    <Content Include="wwwroot\less\empty - Copy.less">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\less\example.less" />
+    <Content Include="wwwroot\less\tricks.less" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AngularJS.Animate" Version="1.6.4" />
@@ -92,5 +91,8 @@
     <None Include="wwwroot\lib\hammer.js\LICENSE.md" />
     <None Include="wwwroot\lib\hammer.js\package.json" />
     <None Include="wwwroot\lib\hammer.js\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 </Project>

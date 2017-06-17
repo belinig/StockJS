@@ -145,9 +145,9 @@ namespace StockQuote.Controllers
         public IActionResult FindASXStocks(string match, int count)
         {
             List<ASXListedCompany> stocks = StockQuote.Data.MongoDBDataAccess.FindCompaniesByCode(match, count);
-            if (stocks == null || stocks.Count < count)
+            if (stocks == null || stocks.Count < count || count == 0)
             {
-                (stocks??new List<ASXListedCompany>()).AddRange(StockQuote.Data.MongoDBDataAccess.FindCompaniesByDescription(match, count - stocks.Count) ?? new List<ASXListedCompany>());
+                (stocks??new List<ASXListedCompany>()).AddRange(StockQuote.Data.MongoDBDataAccess.FindCompaniesByDescriptionLessCode(match, count == 0? count : count - stocks.Count) ?? new List<ASXListedCompany>());
             }
 
             return new JsonResult(stocks);
