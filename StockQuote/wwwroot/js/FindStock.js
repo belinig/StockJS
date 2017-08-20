@@ -3,13 +3,7 @@ var findStockCtrlId = 0;
 var scopes = [];
 angular.module("Watch")
     .controller('findStockCtrl', function ($scope, $uibModalInstance, syncData, $interval, $timeout, $window, $filter, $uibModal, pollInterval, SRV_getWatchlistQuotes, SRV_saveWatchlist, SRV_getDateTime, SRV_findASXStocks, Watchlist) {
-        $scope.model = {};
         $scope.notification = "Loading...";
-        $scope.fontSize;
-        $scope.pollInterval = pollInterval;
-        $scope.first = true;
-        $scope.modified = false;
-        $scope.stocks = {};
         $scope.findStockCtrlId = findStockCtrlId++;
         $scope.stockCodeName = syncData;
 
